@@ -5,7 +5,7 @@
 int main(int argc, char* args[]){
     Game* game = new Game();
 
-    game -> Initialize(800, 600);
+    game -> Initialize(WINDOW_WITH, WINDOW_HEIGHT);
 
     while (game -> IsRunning()){
         game -> ProcessInput();

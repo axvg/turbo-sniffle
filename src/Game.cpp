@@ -13,11 +13,10 @@ bool Game::IsRunning() const {
     return this -> isRunning;
 }
 
-
 float projectilePosX = 0.0f;
 float projectilePosY = 0.0f;
-float projectileVelX = 0.2f;
-float projectileVelY = 0.2f;
+float projectileVelX = 50.0f;
+float projectileVelY = 50.0f;
 
 void Game::Initialize(int width, int height){
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
@@ -73,8 +72,14 @@ void Game::ProcessInput(){
 }
 
 void Game::Update(){
-    projectilePosX += projectileVelX;
-    projectilePosY += projectileVelY;
+    while (!SDL_TICKS_PASSED(SDL_GetTicks(), ticksLastFrame + FRAME_TARGET_TIME));
+
+    float deltaTime = (SDL_GetTicks() - ticksLastFrame) / 1000.0f;
+    deltaTime = (deltaTime > 0.05f) ? 0.05f : deltaTime;
+    ticksLastFrame = SDL_GetTicks();
+
+    projectilePosX += projectileVelX * deltaTime;
+    projectilePosY += projectileVelY * deltaTime;
 }
 
 void Game::Render(){
