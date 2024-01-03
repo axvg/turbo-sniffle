@@ -1,8 +1,20 @@
 #include <iostream>
+#include "./Constants.h"
+#include "./Game.h"
 
 int main(int argc, char* args[]){
-    // TODO:
+    Game* game = new Game();
 
-    std::cout << "running..." << std::endl;
+    game -> Initialize(800, 600);
+
+    while (game -> IsRunning()){
+        game -> ProcessInput();
+        game -> Update();
+        game -> Render();
+        std::cout << "running..." << std::endl;
+    }
+
+    game -> Destroy();
+
     return 0;
 }
